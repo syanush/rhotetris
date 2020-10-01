@@ -1,9 +1,8 @@
 #include <cstdlib>
 
-int main()
-{
-    // Game rhoTetris;
-    // rhoTetris.run();
+int main() {
+  // Game rhoTetris;
+  // rhoTetris.run();
 
-    return EXIT_SUCCESS;
+  return EXIT_SUCCESS;
 }
