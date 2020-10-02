@@ -26,3 +26,8 @@ macro(package_add_test TESTNAME)
             )
     set_target_properties(${TESTNAME} PROPERTIES FOLDER tests)
 endmacro()
+
+package_add_test(test1 test1.cpp)
+target_include_directories(test1 PRIVATE "${PROJECT_SOURCE_DIR}/src")
+
+add_test(NAME test1 COMMAND test1)
