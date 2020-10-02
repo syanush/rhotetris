@@ -4,7 +4,9 @@ project("Rho Tetris" VERSION 0.1 LANGUAGES CXX)
 
 find_package(SFML 2.5 COMPONENTS audio graphics window system REQUIRED)
 
-set(SRC src/main.cpp)
+set(SRC src/main.cpp
+        src/Game.cpp
+        src/GameState.cpp)
 
 add_executable(rhotetris ${SRC})
 target_compile_features(rhotetris PUBLIC cxx_std_17)
