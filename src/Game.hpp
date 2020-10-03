@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <array>
+#include <memory>
 
 #include "GameState.hpp"
 
@@ -20,8 +21,8 @@ class Game {
 
  private:
   sf::RenderWindow m_window;
-  GameState *m_currentState;
-  std::array<GameState *, GameState::Count> m_gameStates;
+  std::shared_ptr<GameState> m_currentState;
+  std::array<std::shared_ptr<GameState>, GameState::Count> m_gameStates;
 
   sf::Font m_font;
   sf::Texture m_logo;

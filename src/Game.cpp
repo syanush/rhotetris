@@ -13,9 +13,9 @@ Game::Game() : m_window(sf::VideoMode(480, 500), "Rho Tetris") {
 }
 
 void Game::initializeGameStates() {
-  m_gameStates[GameState::GetReady] = new GetReadyState(*this);
-  m_gameStates[GameState::Playing] = new PlayingState(*this);
-  m_gameStates[GameState::EndGame] = new EndGameState(*this);
+  m_gameStates[GameState::GetReady] = std::make_shared<GetReadyState>(*this);
+  m_gameStates[GameState::Playing] = std::make_shared<PlayingState>(*this);
+  m_gameStates[GameState::EndGame] = std::make_shared<EndGameState>(*this);
 }
 
 void Game::loadAssets() {
@@ -29,11 +29,7 @@ void Game::loadAssets() {
     throw std::runtime_error("Unable to load the texture file");
 }
 
-Game::~Game() {
-  for (GameState *gameState : m_gameStates) {
-    delete gameState;
-  }
-}
+Game::~Game() {}
 
 void Game::run() {
   sf::Clock frameClock;
