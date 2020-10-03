@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+#include "EndGameState.hpp"
 #include "GetReadyState.hpp"
 #include "PlayingState.hpp"
 
@@ -14,6 +15,7 @@ Game::Game() : m_window(sf::VideoMode(480, 500), "Rho Tetris") {
 void Game::initializeGameStates() {
   m_gameStates[GameState::GetReady] = new GetReadyState(*this);
   m_gameStates[GameState::Playing] = new PlayingState(*this);
+  m_gameStates[GameState::EndGame] = new EndGameState(*this);
 }
 
 void Game::loadAssets() {
@@ -42,8 +44,7 @@ void Game::run() {
       if (event.type == sf::Event::Closed) m_window.close();
 
       if (event.type == sf::Event::KeyPressed) {
-        if (event.key.code == sf::Keyboard::Space)
-          m_currentState->pressButton();
+        m_currentState->handleKeyboardEvents(event.key.code);
       }
     }
 

@@ -8,7 +8,8 @@ set(SRC src/main.cpp
         src/Game.cpp
         src/GameState.cpp
         src/GetReadyState.cpp
-        src/PlayingState.cpp)
+        src/PlayingState.cpp
+        src/EndGameState.cpp)
 
 add_executable(rhotetris ${SRC})
 target_compile_features(rhotetris PUBLIC cxx_std_17)

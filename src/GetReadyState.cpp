@@ -1,5 +1,7 @@
 #include "GetReadyState.hpp"
 
+#include <SFML/Graphics.hpp>
+
 #include "Helpers.hpp"
 
 GetReadyState::GetReadyState(Game& game) : GameState(game) {
@@ -27,6 +29,10 @@ void GetReadyState::setLogo() {
   m_sprite.setPosition(50, 50);
 }
 
-void GetReadyState::pressButton() {
-  getGame().changeGameState(GameState::Playing);
+void GetReadyState::handleKeyboardEvents(sf::Keyboard::Key code) {
+  if (code == sf::Keyboard::Escape)
+    ;  // Quit game
+  if (code == sf::Keyboard::Space)
+    getGame().changeGameState(GameState::Playing);
+  if (code == sf::Keyboard::R) getGame().changeGameState(GameState::EndGame);
 }
