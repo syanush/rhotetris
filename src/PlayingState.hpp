@@ -4,7 +4,7 @@
 
 class PlayingState : public GameState {
  public:
-  PlayingState(Game* game);
+  PlayingState(Game& game);
   ~PlayingState();
 
   void update(sf::Time Delta);

@@ -15,8 +15,8 @@ Game::Game() : m_window(sf::VideoMode(480, 500), "Rho Tetris") {
   if (!m_texture.loadFromFile("assets/texture.png"))
     throw std::runtime_error("Unable to load the texture file");
 
-  m_gameStates[GameState::Playing] = new PlayingState(this);
-  m_gameStates[GameState::GetReady] = new GetReadyState(this);
+  m_gameStates[GameState::Playing] = new PlayingState(*this);
+  m_gameStates[GameState::GetReady] = new GetReadyState(*this);
 
   changeGameState(GameState::GetReady);
 }
