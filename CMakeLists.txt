@@ -6,7 +6,9 @@ find_package(SFML 2.5 COMPONENTS audio graphics window system REQUIRED)
 
 set(SRC src/main.cpp
         src/Game.cpp
-        src/GameState.cpp)
+        src/GameState.cpp
+        src/GetReadyState.cpp
+        src/PlayingState.cpp)
 
 add_executable(rhotetris ${SRC})
 target_compile_features(rhotetris PUBLIC cxx_std_17)

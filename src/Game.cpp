@@ -2,6 +2,9 @@
 
 #include <iostream>
 
+#include "GetReadyState.hpp"
+#include "PlayingState.hpp"
+
 Game::Game() : m_window(sf::VideoMode(480, 500), "Rho Tetris") {
   if (!m_font.loadFromFile("assets/font.ttf"))
     throw std::runtime_error("Unable to load the font file");
@@ -13,14 +16,15 @@ Game::Game() : m_window(sf::VideoMode(480, 500), "Rho Tetris") {
     throw std::runtime_error("Unable to load the texture file");
 
   m_gameStates[GameState::Playing] = new PlayingState(this);
-  m_gameStates[GameState::GetReady] =
-      new GetReadyState(this, m_gameStates[GameState::Playing]);
+  m_gameStates[GameState::GetReady] = new GetReadyState(this);
 
   changeGameState(GameState::GetReady);
 }
 
 Game::~Game() {
-  for (GameState *gameState : m_gameStates) delete gameState;
+  for (GameState *gameState : m_gameStates) {
+    delete gameState;
+  }
 }
 
 void Game::run() {

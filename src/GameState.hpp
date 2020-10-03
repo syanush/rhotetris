@@ -17,28 +17,3 @@ class GameState {
  private:
   Game* m_game;
 };
-
-class GetReadyState : public GameState {
- public:
-  GetReadyState(Game* game, GameState* playingState);
-
-  void update(sf::Time Delta);
-  void draw(sf::RenderWindow& window);
-
- private:
-  sf::Text m_text;
-};
-
-class PlayingState : public GameState {
- public:
-  PlayingState(Game* game);
-  ~PlayingState();
-
-  void update(sf::Time Delta);
-  void draw(sf::RenderWindow& window);
-
- private:
-  sf::RenderTexture m_scene;
-
-  int m_score;
-};
