@@ -18,6 +18,7 @@ class Game {
   sf::Texture &getTexture();
 
   void changeGameState(GameState::State gameState);
+  void exit();
 
  private:
   sf::RenderWindow m_window;

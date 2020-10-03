@@ -19,4 +19,6 @@ void EndGameState::setText() {
 void EndGameState::handleKeyboardEvents(sf::Keyboard::Key code) {
   if (code == sf::Keyboard::Escape)
     getGame().changeGameState(GameState::GetReady);
+  if (code == sf::Keyboard::Space)
+    getGame().changeGameState(GameState::GetReady);
 }

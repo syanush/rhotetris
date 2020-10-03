@@ -7,6 +7,7 @@
 #include "PlayingState.hpp"
 
 Game::Game() : m_window(sf::VideoMode(480, 500), "Rho Tetris") {
+  m_window.setMouseCursorVisible(false);
   loadAssets();
   initializeGameStates();
   changeGameState(GameState::GetReady);
@@ -60,3 +61,5 @@ sf::Font &Game::getFont() { return m_font; }
 sf::Texture &Game::getLogo() { return m_logo; }
 
 sf::Texture &Game::getTexture() { return m_texture; }
+
+void Game::exit() { m_window.close(); }

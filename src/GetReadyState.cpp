@@ -30,8 +30,7 @@ void GetReadyState::setLogo() {
 }
 
 void GetReadyState::handleKeyboardEvents(sf::Keyboard::Key code) {
-  if (code == sf::Keyboard::Escape)
-    ;  // Quit game
+  if (code == sf::Keyboard::Escape) getGame().exit();
   if (code == sf::Keyboard::Space)
     getGame().changeGameState(GameState::Playing);
   if (code == sf::Keyboard::R) getGame().changeGameState(GameState::EndGame);
