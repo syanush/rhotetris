@@ -7,6 +7,7 @@ class PlayingState : public GameState {
   PlayingState(Game& game);
   ~PlayingState();
 
+  void pressButton() override;
   void update(sf::Time Delta);
   void draw(sf::RenderWindow& window);
 

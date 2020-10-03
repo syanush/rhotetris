@@ -26,4 +26,8 @@ class Game {
   sf::Font m_font;
   sf::Texture m_logo;
   sf::Texture m_texture;
+
+  void loadAssets();
+
+  void initializeGameStates();
 };

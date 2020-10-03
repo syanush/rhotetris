@@ -6,6 +6,17 @@
 #include "PlayingState.hpp"
 
 Game::Game() : m_window(sf::VideoMode(480, 500), "Rho Tetris") {
+  loadAssets();
+  initializeGameStates();
+  changeGameState(GameState::GetReady);
+}
+
+void Game::initializeGameStates() {
+  m_gameStates[GameState::GetReady] = new GetReadyState(*this);
+  m_gameStates[GameState::Playing] = new PlayingState(*this);
+}
+
+void Game::loadAssets() {
   if (!m_font.loadFromFile("assets/font.ttf"))
     throw std::runtime_error("Unable to load the font file");
 
@@ -14,11 +25,6 @@ Game::Game() : m_window(sf::VideoMode(480, 500), "Rho Tetris") {
 
   if (!m_texture.loadFromFile("assets/texture.png"))
     throw std::runtime_error("Unable to load the texture file");
-
-  m_gameStates[GameState::Playing] = new PlayingState(*this);
-  m_gameStates[GameState::GetReady] = new GetReadyState(*this);
-
-  changeGameState(GameState::GetReady);
 }
 
 Game::~Game() {
@@ -36,6 +42,8 @@ void Game::run() {
       if (event.type == sf::Event::Closed) m_window.close();
 
       if (event.type == sf::Event::KeyPressed) {
+        if (event.key.code == sf::Keyboard::Space)
+          m_currentState->pressButton();
       }
     }
 

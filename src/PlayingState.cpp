@@ -13,3 +13,5 @@ void PlayingState::draw(sf::RenderWindow& window) {
   m_scene.display();
   window.draw(sf::Sprite(m_scene.getTexture()));
 }
+
+void PlayingState::pressButton() {}

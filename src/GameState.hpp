@@ -11,6 +11,7 @@ class GameState {
   GameState(Game& game);
   Game& getGame() const;
 
+  virtual void pressButton() = 0;
   virtual void update(sf::Time delta) = 0;
   virtual void draw(sf::RenderWindow& window) = 0;
 
