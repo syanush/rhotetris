@@ -2,6 +2,10 @@
 
 #include "Game.hpp"
 
+enum class Colors { Default, Red, Blue, Green, Yellow, Magenta };
+
+sf::Color ToColor(Colors value);
+
 class PlayingState : public GameState {
  public:
   PlayingState(Game& game);
@@ -10,8 +14,14 @@ class PlayingState : public GameState {
   void update(sf::Time Delta) override;
   void draw(sf::RenderWindow& window) override;
 
-  const size_t m_boardWidth = 10;
-  const size_t m_boardHeight = 22;
+  static const size_t kBoardWidth = 10;
+  static const size_t kBoardHeight = 22;
+  static const int kCellWidth = 16;
+  static const int kCellHeight = 16;
+  static const int kOriginX = 200;
+  static const int kOriginY = 400;
 
  private:
+  std::array<std::array<Colors, kBoardWidth>, kBoardHeight> m_gameBoard;
+  sf::RectangleShape m_rectangle;
 };
