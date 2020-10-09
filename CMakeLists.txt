@@ -9,7 +9,9 @@ set(SRC src/main.cpp
         src/GameState.cpp
         src/GetReadyState.cpp
         src/PlayingState.cpp
-        src/EndGameState.cpp)
+        src/EndGameState.cpp
+        src/Piece.cpp
+        src/Point.cpp)
 
 add_executable(rhotetris ${SRC})
 target_compile_features(rhotetris PUBLIC cxx_std_17)
