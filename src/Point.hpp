@@ -1,7 +1,8 @@
 #pragma once
 
-#include <vector>
 #include <istream>
+#include <string_view>
+#include <vector>
 
 struct Point {
   Point(int x = 0, int y = 0) : x(x), y(y) {}

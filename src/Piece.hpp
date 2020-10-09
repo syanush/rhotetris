@@ -6,7 +6,7 @@
 #include <string_view>
 #include <vector>
 
-#include "Point.h"
+#include "Point.hpp"
 
 class Piece final {
  public:
@@ -14,7 +14,7 @@ class Piece final {
   inline int getHeight() const { return m_height; }
   inline const std::vector<Point>& getBody() const { return m_body; }
   inline const std::vector<int>& getSkirt() const { return m_skirt; }
-  const std::vector<Piece>& getPieces() { return m_pieces; }
+  static const std::vector<Piece>& getPieces() { return m_pieces; }
 
   inline const Piece* nextRotation() const { return m_next; }
   bool equals(const Piece& other);
