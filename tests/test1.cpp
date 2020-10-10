@@ -1,5 +1,3 @@
-#include <cmath>
-
 #include "gtest/gtest.h"
 #include "Piece.hpp"
 
@@ -9,16 +7,9 @@ namespace {
 
 TEST(PieceTestCase, CheckPieces) {
   auto& pieces = Piece::getPieces();
-  auto& b0 = pieces[0].getBody();
-  // 0 0 0 1 0 2 0 3
-  EXPECT_EQ(0, b0[0].x);
-  EXPECT_EQ(0, b0[0].y);
-  EXPECT_EQ(0, b0[1].x);
-  EXPECT_EQ(1, b0[1].y);
-  EXPECT_EQ(0, b0[2].x);
-  EXPECT_EQ(2, b0[2].y);
-  EXPECT_EQ(0, b0[3].x);
-  EXPECT_EQ(3, b0[3].y);
+  Body actual = pieces[0].getBody();
+  Body expected {{0, 0}, {0, 1}, {0, 2}, {0, 3}};
+  EXPECT_EQ(expected, actual);
 }
 
 TEST(PieceTestCase, CheckWidth) {
@@ -41,9 +32,56 @@ TEST(PointTestCase, ComparePoints) {
   EXPECT_TRUE(Point(1, 1) <= Point(1, 1));
 }
 
-TEST(PointTestCase, CompareBodies) {
+TEST(PieceTestCase, CompareBodies) {
   std::vector<Point> b1{Point(1, 1), Point(2, 1), Point(1, 2)};
   std::vector<Point> b2{Point(2, 1), Point(1, 2), Point(1, 1)};
+  EXPECT_EQ(b1, b2);
+}
+
+TEST(PieceTestCase, RotateBodies) {
+  Body body{Point(0, 0)};
+  Body rotated = ::rotate(body);
+  EXPECT_EQ(body, rotated);
+}
+
+void ShouldHaveRotationIndex1(size_t pieceIndex) {
+  auto& pieces = Piece::getPieces();
+  auto& piece = pieces[pieceIndex];
+  Piece rotated1 = piece.nextRotation();
+  EXPECT_EQ(piece, rotated1);
+}
+
+void ShouldHaveRotationIndex2(size_t pieceIndex) {
+  auto& pieces = Piece::getPieces();
+  auto& piece = pieces[pieceIndex];
+  Piece rotated1 = piece.nextRotation();
+  EXPECT_NE(piece, rotated1);
+  Piece rotated2 = rotated1.nextRotation();
+  EXPECT_EQ(piece, rotated2);
+}
+
+void ShouldHaveRotationIndex4(size_t pieceIndex) {
+  auto& pieces = Piece::getPieces();
+  auto& piece = pieces[pieceIndex];
+  Piece rotated1 = piece.nextRotation();
+  EXPECT_NE(piece, rotated1);
+  Piece rotated2 = rotated1.nextRotation();
+  EXPECT_NE(piece, rotated2);
+  Piece rotated3 = rotated2.nextRotation();
+  EXPECT_NE(piece, rotated3);
+  Piece rotated4 = rotated3.nextRotation();
+  EXPECT_EQ(piece, rotated4);
+}
+
+TEST(PieceTestCase, TestRotations) {
+  auto& pieces = Piece::getPieces();
+  ShouldHaveRotationIndex2(0);
+  ShouldHaveRotationIndex4(1);
+  ShouldHaveRotationIndex4(2);
+  ShouldHaveRotationIndex2(3);
+  ShouldHaveRotationIndex2(4);
+  ShouldHaveRotationIndex1(5);
+  ShouldHaveRotationIndex4(6);
 }
 
 }  // namespace

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Game.hpp"
+#include "Piece.hpp"
 
 enum class Colors { Default, Red, Blue, Green, Yellow, Magenta };
 
@@ -13,6 +14,8 @@ class PlayingState : public GameState {
   void handleKeyboardEvents(sf::Keyboard::Key code) override;
   void update(sf::Time Delta) override;
   void draw(sf::RenderWindow& window) override;
+  void drawPiece(sf::RenderWindow& window, const Piece& piece, int row,
+                 int col);
 
   static const size_t kBoardWidth = 10;
   static const size_t kBoardHeight = 22;

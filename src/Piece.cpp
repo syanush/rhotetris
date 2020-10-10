@@ -1,11 +1,26 @@
 #include "Piece.hpp"
 
 #include <algorithm>
-#include <iostream>
 
-static Piece& pieceRow(Piece&& piece) { return piece; }
+/*
+ * Wires up rotated pieces with the initial piece.
+ * It is used only during initialization of static data.
+ */
+Piece& pieceRow(Piece&& piece) {
+  auto initial = new Piece(std::move(piece));
+  auto tmp = initial;
+  do {
+    tmp->m_next = new Piece(std::move(tmp->rotate()));
+    tmp = tmp->m_next;
+  } while (*tmp != *initial);
 
-const std::vector<Piece> Piece::m_pieces = std::vector<Piece>{
+  tmp->m_next = initial->m_next;
+  delete initial;
+  initial = nullptr;
+  return *tmp;
+}
+
+const Pieces Piece::m_pieces = Pieces{
     pieceRow(Piece(parsePoints("0 0 0 1 0 2 0 3"))),  // 0
     pieceRow(Piece(parsePoints("0 0 0 1 0 2 1 0"))),  // 1
     pieceRow(Piece(parsePoints("0 0 1 0 1 1 1 2"))),  // 2
@@ -15,38 +30,74 @@ const std::vector<Piece> Piece::m_pieces = std::vector<Piece>{
     pieceRow(Piece(parsePoints("0 0 1 0 1 1 2 0"))),  // 6
 };
 
-Piece::Piece(std::vector<Point> points) : m_body(points) {
-  const auto min_x =
-      std::min_element(m_body.begin(), m_body.end(),
-                       [](const Point& a, const Point& b) { return a.x < b.x; })
-          ->x;
-  const auto max_x =
-      std::max_element(m_body.begin(), m_body.end(),
-                       [](const Point& a, const Point& b) { return a.x < b.x; })
-          ->x;
-  m_width = max_x - min_x + 1;
-
-  const auto min_y =
-      std::min_element(m_body.begin(), m_body.end(),
-                       [](const Point& a, const Point& b) { return a.y < b.y; })
-          ->y;
-  const auto max_y =
-      std::max_element(m_body.begin(), m_body.end(),
-                       [](const Point& a, const Point& b) { return a.y < b.y; })
-          ->y;
-  m_height = max_y - min_y + 1;
+/*
+ * Computes width/height/skirt
+ */
+Piece::Piece(Body body) : m_body(body) {
+  m_width = ::getWidth(body);
+  m_height = ::getHeight(body);
+  m_skirt = ::getSkirt(body);
 }
 
-bool Piece::equals(const Piece& other) {
+bool Piece::operator==(const Piece& other) const {
   if (this == &other) return true;
-
-  auto thisBody = std::vector<Point>(getBody());
-  auto otherBody = std::vector<Point>(other.getBody());
-
-  if (thisBody.size() != otherBody.size()) return false;
-
-  std::sort(thisBody.begin(), thisBody.end());
-  std::sort(otherBody.begin(), otherBody.end());
-
-  return thisBody == otherBody;
+  return Body(getBody()) == Body(other.getBody());
 }
+
+bool Piece::operator!=(const Piece& other) const { return !(*this == other); }
+
+/*
+ * Create rotated piece
+ */
+Piece Piece::rotate() {
+  Piece rotatedPiece{::rotate(getBody())};
+  return rotatedPiece;
+}
+
+// TODO: create correct realization
+Skirt getSkirt(const Body& body) { return Skirt(); }
+
+size_t getDiameter(const std::vector<int> collection) {
+  auto minValue = *std::min_element(collection.begin(), collection.end());
+  auto maxValue = *std::max_element(collection.begin(), collection.end());
+  auto diameter = maxValue - minValue + 1;
+  return diameter;
+}
+
+size_t getWidth(const Body& body) {
+  std::vector<int> xValues;
+  for (const auto& [x, y] : body) xValues.push_back(x);
+  auto width = getDiameter(xValues);
+  return width;
+}
+
+size_t getHeight(const Body& body) {
+  std::vector<int> yValues;
+  for (const auto& [x, y] : body) yValues.push_back(y);
+  auto height = getDiameter(yValues);
+  return height;
+}
+
+/*
+ * Rotate the body 90 degrees counterclockwise
+ */
+Body rotate(const Body& body) {
+  auto height = getHeight(body);
+  Body rotatedBody;
+  for (const auto& [x, y] : body) rotatedBody.emplace_back(height - y - 1, x);
+  return rotatedBody;
+}
+
+bool operator==(const Body& lhs, const Body& rhs) {
+  if (lhs.size() != rhs.size()) return false;
+
+  Body lhs1 = Body(lhs);
+  Body rhs1 = Body(rhs);
+  std::sort(lhs1.begin(), lhs1.end());
+  std::sort(rhs1.begin(), rhs1.end());
+
+  const auto areEqual = std::equal(lhs1.begin(), lhs1.end(), rhs1.begin());
+  return areEqual;
+}
+
+bool operator!=(const Body& lhs, const Body& rhs) { return !(lhs == rhs); }
