@@ -35,11 +35,15 @@ TEST(PieceTestCase, CheckHeight) {
   EXPECT_EQ(4, height);
 }
 
-TEST(ExampleTestCase, SinusTest) { EXPECT_FLOAT_EQ(1.0, sin(M_PI_2)); }
+TEST(PointTestCase, ComparePoints) {
+  EXPECT_TRUE(Point(1, 1) < Point(2, 1));
+  EXPECT_TRUE(Point(1, 1) < Point(1, 2));
+  EXPECT_TRUE(Point(1, 1) <= Point(1, 1));
+}
 
-TEST(ExampleTestCase, BoolTest) {
-  EXPECT_TRUE(true);
-  EXPECT_FALSE(false);
+TEST(PointTestCase, CompareBodies) {
+  std::vector<Point> b1{Point(1, 1), Point(2, 1), Point(1, 2)};
+  std::vector<Point> b2{Point(2, 1), Point(1, 2), Point(1, 1)};
 }
 
 }  // namespace

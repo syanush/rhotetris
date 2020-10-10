@@ -6,6 +6,13 @@
 
 struct Point {
   Point(int x = 0, int y = 0) : x(x), y(y) {}
+  bool operator<(const Point& point) const;
+  bool operator>(const Point& point) const;
+  bool operator<=(const Point& point) const;
+  bool operator>=(const Point& point) const;
+  bool operator==(const Point& point) const;
+  bool operator!=(const Point& point) const;
+
   int x;
   int y;
 };

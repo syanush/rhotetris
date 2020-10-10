@@ -36,3 +36,17 @@ Piece::Piece(std::vector<Point> points) : m_body(points) {
           ->y;
   m_height = max_y - min_y + 1;
 }
+
+bool Piece::equals(const Piece& other) {
+  if (this == &other) return true;
+
+  auto thisBody = std::vector<Point>(getBody());
+  auto otherBody = std::vector<Point>(other.getBody());
+
+  if (thisBody.size() != otherBody.size()) return false;
+
+  std::sort(thisBody.begin(), thisBody.end());
+  std::sort(otherBody.begin(), otherBody.end());
+
+  return thisBody == otherBody;
+}
