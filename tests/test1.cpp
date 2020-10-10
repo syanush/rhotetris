@@ -21,7 +21,19 @@ TEST(PieceTestCase, CheckPieces) {
   EXPECT_EQ(3, b0[3].y);
 }
 
-TEST(ExampleTestCase, ExampleTest) { EXPECT_EQ(1, 1); }
+TEST(PieceTestCase, CheckWidth) {
+  auto& pieces = Piece::getPieces();
+  auto& b0 = pieces[0].getBody();
+  auto width = pieces[0].getWidth();
+  EXPECT_EQ(1, width);
+}
+
+TEST(PieceTestCase, CheckHeight) {
+  auto& pieces = Piece::getPieces();
+  auto& b0 = pieces[0].getBody();
+  auto height = pieces[0].getHeight();
+  EXPECT_EQ(4, height);
+}
 
 TEST(ExampleTestCase, SinusTest) { EXPECT_FLOAT_EQ(1.0, sin(M_PI_2)); }
 

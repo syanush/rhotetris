@@ -27,5 +27,5 @@ class Piece final {
   Piece* m_next;
   static const std::vector<Piece> m_pieces;
 
-  Piece(std::vector<Point> points) : m_body(points) {}
+  Piece(std::vector<Point> points);
 };
