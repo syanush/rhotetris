@@ -28,6 +28,22 @@ TEST(PieceTestCase, CheckHeight) {
   EXPECT_EQ(4, height);
 }
 
+TEST(PieceTestCase, CheckSkirt0) {
+  const auto& pieces = Piece::getPieces();
+  const auto& b0 = pieces[0].getBody();
+  const auto& actual = RhoTetris::getSkirt(b0);
+  const Skirt expected{0};
+  EXPECT_EQ(expected, actual);
+}
+
+TEST(PieceTestCase, CheckSkirt4) {
+  const auto& pieces = Piece::getPieces();
+  const auto& b4 = pieces[4].getBody();
+  const auto& actual = RhoTetris::getSkirt(b4);
+  const Skirt expected{1, 0, 0};
+  EXPECT_EQ(expected, actual);
+}
+
 TEST(PointTestCase, ComparePoints) {
   EXPECT_TRUE(Point(1, 1) < Point(2, 1));
   EXPECT_TRUE(Point(1, 1) < Point(1, 2));
@@ -42,7 +58,7 @@ TEST(PieceTestCase, CompareBodies) {
 
 TEST(PieceTestCase, RotateBodies) {
   Body body{Point(0, 0)};
-  Body rotated = ::rotate(body);
+  Body rotated = RhoTetris::rotate(body);
   EXPECT_EQ(body, rotated);
 }
 

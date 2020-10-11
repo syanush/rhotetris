@@ -1,6 +1,7 @@
 #include "Body.hpp"
 
 #include <algorithm>
+#include <cassert>
 
 using namespace RhoTetris;
 
@@ -52,4 +53,19 @@ bool RhoTetris::operator!=(const Body& lhs, const Body& rhs) {
 }
 
 // TODO: create correct realization
-Skirt RhoTetris::getSkirt(const Body& body) { return Skirt(); }
+Skirt RhoTetris::getSkirt(const Body& body) {
+  const auto& width = getWidth(body);
+  Skirt skirt;
+
+  for (int x = 0; x < width; ++x) {
+    std::vector<int> yValues;
+    for (const auto& [x1, y1] : body)
+      if (x1 == x) yValues.push_back(y1);
+
+    assert(!yValues.empty());
+    auto yMin = *std::min_element(yValues.begin(), yValues.end());
+    skirt.push_back(yMin);
+  }
+
+  return skirt;
+}

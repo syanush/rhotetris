@@ -14,6 +14,11 @@ Body rotate(const Body& body);
 bool operator==(const Body& lhs, const Body& rhs);
 bool operator!=(const Body& thisBody, const Body& otherBody);
 
+/*
+ * Returns the skirt of the body.
+ * The skirt is the lowest y value for every x value in the piece coordinate
+ * system.
+ */
 Skirt getSkirt(const Body& body);
 
 }  // namespace RhoTetris
