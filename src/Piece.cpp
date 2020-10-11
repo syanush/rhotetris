@@ -1,7 +1,5 @@
 #include "Piece.hpp"
 
-#include <algorithm>
-
 using namespace RhoTetris;
 
 /*
@@ -52,56 +50,6 @@ bool Piece::operator!=(const Piece& other) const { return !(*this == other); }
  * Create rotated piece
  */
 Piece Piece::rotate() {
-  Piece rotatedPiece{::rotate(getBody())};
+  Piece rotatedPiece{RhoTetris::rotate(getBody())};
   return rotatedPiece;
-}
-
-// TODO: create correct realization
-Skirt RhoTetris::getSkirt(const Body& body) { return Skirt(); }
-
-size_t RhoTetris::getDiameter(const std::vector<int>& collection) {
-  auto minValue = *std::min_element(collection.begin(), collection.end());
-  auto maxValue = *std::max_element(collection.begin(), collection.end());
-  auto diameter = maxValue - minValue + 1;
-  return diameter;
-}
-
-size_t RhoTetris::getWidth(const Body& body) {
-  std::vector<int> xValues;
-  for (const auto& [x, y] : body) xValues.push_back(x);
-  auto width = getDiameter(xValues);
-  return width;
-}
-
-size_t RhoTetris::getHeight(const Body& body) {
-  std::vector<int> yValues;
-  for (const auto& [x, y] : body) yValues.push_back(y);
-  auto height = getDiameter(yValues);
-  return height;
-}
-
-/*
- * Rotate the body 90 degrees counterclockwise
- */
-Body RhoTetris::rotate(const Body& body) {
-  auto height = getHeight(body);
-  Body rotatedBody;
-  for (const auto& [x, y] : body) rotatedBody.emplace_back(height - y - 1, x);
-  return rotatedBody;
-}
-
-bool RhoTetris::operator==(const Body& lhs, const Body& rhs) {
-  if (lhs.size() != rhs.size()) return false;
-
-  Body lhs1 = Body(lhs);
-  Body rhs1 = Body(rhs);
-  std::sort(lhs1.begin(), lhs1.end());
-  std::sort(rhs1.begin(), rhs1.end());
-
-  const auto areEqual = std::equal(lhs1.begin(), lhs1.end(), rhs1.begin());
-  return areEqual;
-}
-
-bool RhoTetris::operator!=(const Body& lhs, const Body& rhs) {
-  return !(lhs == rhs);
 }

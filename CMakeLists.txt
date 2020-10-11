@@ -11,7 +11,8 @@ set(SRC
         src/PlayingState.cpp
         src/EndGameState.cpp
         src/Piece.cpp
-        src/Point.cpp)
+        src/Point.cpp
+        src/Body.cpp)
 
 add_library(rhotetris ${SRC})
 target_compile_features(rhotetris PUBLIC cxx_std_17)
