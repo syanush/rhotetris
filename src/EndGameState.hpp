@@ -2,6 +2,8 @@
 
 #include "Game.hpp"
 
+namespace RhoTetris {
+
 class EndGameState : public GameState {
  public:
   EndGameState(Game& game);
@@ -14,3 +16,5 @@ class EndGameState : public GameState {
 
   void setText();
 };
+
+}  // namespace RhoTetris

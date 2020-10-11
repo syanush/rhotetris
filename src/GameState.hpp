@@ -2,6 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 
+namespace RhoTetris {
+
 class Game;
 
 class GameState {
@@ -18,3 +20,5 @@ class GameState {
  private:
   Game& m_game;
 };
+
+}  // namespace RhoTetris

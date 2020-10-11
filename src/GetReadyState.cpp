@@ -4,6 +4,8 @@
 
 #include "Helpers.hpp"
 
+using namespace RhoTetris;
+
 GetReadyState::GetReadyState(Game& game) : GameState(game) {
   setText();
   setLogo();

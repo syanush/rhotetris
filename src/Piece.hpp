@@ -8,7 +8,10 @@
 
 #include "Point.hpp"
 
+namespace RhoTetris {
+
 class Piece;
+Piece& pieceRow(Piece&& piece);
 
 using Pieces = std::array<Piece, 7>;
 using Body = std::vector<Point>;  // TODO: Move to Body.hpp/cpp
@@ -16,7 +19,7 @@ using Skirt = std::vector<int>;
 
 size_t getWidth(const Body& body);
 size_t getHeight(const Body& body);
-size_t getDiameter(const std::vector<int> collection);
+size_t getDiameter(const std::vector<int>& collection);
 Body rotate(const Body& body);
 Skirt getSkirt(const Body& body);
 bool operator==(const Body& lhs, const Body& rhs);
@@ -47,3 +50,5 @@ class Piece final {
   Piece rotate();
   friend Piece& pieceRow(Piece&& piece);
 };
+
+}  // namespace RhoTetris

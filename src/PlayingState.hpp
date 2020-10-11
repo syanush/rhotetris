@@ -3,6 +3,8 @@
 #include "Game.hpp"
 #include "Piece.hpp"
 
+namespace RhoTetris {
+
 enum class Colors { Default, Red, Blue, Green, Yellow, Magenta };
 
 sf::Color ToColor(Colors value);
@@ -28,3 +30,5 @@ class PlayingState : public GameState {
   std::array<std::array<Colors, kBoardWidth>, kBoardHeight> m_gameBoard;
   sf::RectangleShape m_rectangle;
 };
+
+}  // namespace RhoTetris

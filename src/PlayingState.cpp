@@ -1,5 +1,7 @@
 #include "PlayingState.hpp"
 
+using namespace RhoTetris;
+
 PlayingState::PlayingState(Game& game) : GameState(game) {
   m_rectangle =
       sf::RectangleShape(sf::Vector2f(kCellWidth - 1, kCellHeight - 1));
@@ -64,7 +66,7 @@ void PlayingState::handleKeyboardEvents(sf::Keyboard::Key code) {
 }
 
 // TODO: Move to Colors.hpp/cpp
-sf::Color ToColor(Colors value) {
+sf::Color RhoTetris::ToColor(Colors value) {
   switch (value) {
     case Colors::Default:
       return sf::Color::Transparent;

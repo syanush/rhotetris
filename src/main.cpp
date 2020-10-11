@@ -2,7 +2,7 @@
 
 #include "Game.hpp"
 
-// TODO: add API namespaces
+using namespace RhoTetris;
 
 int main() {
   Game rhoTetris;

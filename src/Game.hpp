@@ -6,6 +6,8 @@
 
 #include "GameState.hpp"
 
+namespace RhoTetris {
+
 class Game {
  public:
   Game();
@@ -33,3 +35,5 @@ class Game {
 
   void initializeGameStates();
 };
+
+}  // namespace RhoTetris

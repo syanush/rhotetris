@@ -6,6 +6,8 @@
 #include "GetReadyState.hpp"
 #include "PlayingState.hpp"
 
+using namespace RhoTetris;
+
 Game::Game() : m_window(sf::VideoMode(480, 500), "Rho Tetris") {
   m_window.setMouseCursorVisible(false);
   loadAssets();

@@ -1,6 +1,8 @@
 #include "gtest/gtest.h"
 #include "Piece.hpp"
 
+using namespace RhoTetris;
+
 namespace {
 // The test case name and the test name.
 // You should not use underscore (_) in the names.

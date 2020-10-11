@@ -2,6 +2,8 @@
 
 #include "Game.hpp"
 
+namespace RhoTetris {
+
 class GetReadyState : public GameState {
  public:
   GetReadyState(Game& game);
@@ -17,3 +19,5 @@ class GetReadyState : public GameState {
   void setText();
   void setLogo();
 };
+
+}  // namespace RhoTetris

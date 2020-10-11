@@ -2,6 +2,8 @@
 
 #include "Helpers.hpp"
 
+using namespace RhoTetris;
+
 EndGameState::EndGameState(Game& game) : GameState(game) { setText(); }
 
 void EndGameState::update(sf::Time Delta) {}
