@@ -21,8 +21,8 @@ class PlayingState : public GameState {
   void drawPiece(sf::RenderWindow& window, const Piece& piece, int row,
                  int col);
 
-  static const size_t kBoardWidth = 10;
-  static const size_t kBoardHeight = 22;
+  static const int kBoardWidth = 10;
+  static const int kBoardHeight = 22;
   static const int kCellWidth = 16;
   static const int kCellHeight = 16;
   static const int kOriginX = 200;

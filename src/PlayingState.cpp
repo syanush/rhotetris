@@ -5,9 +5,6 @@ using namespace RhoTetris;
 PlayingState::PlayingState(Game& game) : GameState(game) {
   m_deltaTime = sf::seconds(0.5);
 
-  m_rectangle =
-      sf::RectangleShape(sf::Vector2f(kCellWidth - 1, kCellHeight - 1));
-
   for (int row = 0; row < kBoardHeight; ++row) {
     for (int col = 0; col < kBoardWidth; ++col) {
       m_gameBoard[row][col] = Colors::Default;
@@ -37,6 +34,26 @@ void PlayingState::drawPiece(sf::RenderWindow& window, const Piece& piece,
 }
 
 void PlayingState::draw(sf::RenderWindow& window) {
+  m_rectangle.setSize(sf::Vector2f{5, kBoardHeight * kCellHeight + 2});
+  m_rectangle.setFillColor(sf::Color::Yellow);
+
+  m_rectangle.setPosition(
+      sf::Vector2f{kOriginX - 6, kOriginY - (kBoardHeight - 1) * kCellHeight});
+  window.draw(m_rectangle);
+
+  m_rectangle.setPosition(
+      sf::Vector2f{kOriginX + kBoardWidth * kCellWidth + 1,
+                   kOriginY - (kBoardHeight - 1) * kCellHeight});
+  window.draw(m_rectangle);
+
+  m_rectangle.setSize(sf::Vector2f{kBoardWidth * kCellWidth + 12, 5});
+  m_rectangle.setPosition(
+      sf::Vector2f{kOriginX - 6, kOriginY + kCellHeight + 1});
+  window.draw(m_rectangle);
+
+  m_rectangle =
+      sf::RectangleShape(sf::Vector2f(kCellWidth - 1, kCellHeight - 1));
+
   for (int row = 0; row < kBoardHeight; ++row) {
     for (int col = 0; col < kBoardWidth; ++col) {
       const auto position = sf::Vector2f(kOriginX + kCellWidth * col,
@@ -48,8 +65,6 @@ void PlayingState::draw(sf::RenderWindow& window) {
     }
   }
 
-  // Showcase
-  auto& pieces = Piece::getPieces();
   drawPiece(window, *m_piece, m_row, m_col);
 }
 
