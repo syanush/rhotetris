@@ -43,7 +43,11 @@ void Game::run() {
       if (event.type == sf::Event::Closed) m_window.close();
 
       if (event.type == sf::Event::KeyPressed) {
-        m_currentState->handleKeyboardEvents(event.key.code);
+        m_currentState->handleKeyPressedEvents(event.key.code);
+      }
+
+      if (event.type == sf::Event::KeyReleased) {
+        m_currentState->handleKeyReleasedEvents(event.key.code);
       }
     }
 
@@ -56,6 +60,7 @@ void Game::run() {
 
 void Game::changeGameState(GameState::State gameState) {
   m_currentState = m_gameStates[gameState];
+  m_currentState->initialize();
 }
 
 sf::Font &Game::getFont() { return m_font; }

@@ -65,29 +65,29 @@ TEST(PieceTestCase, RotateBodies) {
 void ShouldHaveRotationIndex1(size_t pieceIndex) {
   auto& pieces = Piece::getPieces();
   auto& piece = pieces[pieceIndex];
-  Piece rotated1 = piece.nextRotation();
+  Piece rotated1 = *piece.nextRotation();
   EXPECT_EQ(piece, rotated1);
 }
 
 void ShouldHaveRotationIndex2(size_t pieceIndex) {
   auto& pieces = Piece::getPieces();
   auto& piece = pieces[pieceIndex];
-  Piece rotated1 = piece.nextRotation();
+  Piece rotated1 = *piece.nextRotation();
   EXPECT_NE(piece, rotated1);
-  Piece rotated2 = rotated1.nextRotation();
+  Piece rotated2 = *rotated1.nextRotation();
   EXPECT_EQ(piece, rotated2);
 }
 
 void ShouldHaveRotationIndex4(size_t pieceIndex) {
   auto& pieces = Piece::getPieces();
   auto& piece = pieces[pieceIndex];
-  Piece rotated1 = piece.nextRotation();
+  Piece rotated1 = *piece.nextRotation();
   EXPECT_NE(piece, rotated1);
-  Piece rotated2 = rotated1.nextRotation();
+  Piece rotated2 = *rotated1.nextRotation();
   EXPECT_NE(piece, rotated2);
-  Piece rotated3 = rotated2.nextRotation();
+  Piece rotated3 = *rotated2.nextRotation();
   EXPECT_NE(piece, rotated3);
-  Piece rotated4 = rotated3.nextRotation();
+  Piece rotated4 = *rotated3.nextRotation();
   EXPECT_EQ(piece, rotated4);
 }
 

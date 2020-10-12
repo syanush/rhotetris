@@ -24,7 +24,7 @@ class Piece final {
   inline const Skirt& getSkirt() const { return m_skirt; }
   static const Pieces& getPieces() { return m_pieces; }
 
-  inline const Piece& nextRotation() const { return *m_next; }
+  inline const Piece* nextRotation() const { return m_next; }
   bool operator==(const Piece& other) const;
   bool operator!=(const Piece& other) const;
 

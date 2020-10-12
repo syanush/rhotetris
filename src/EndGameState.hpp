@@ -7,7 +7,7 @@ namespace RhoTetris {
 class EndGameState : public GameState {
  public:
   EndGameState(Game& game);
-  void handleKeyboardEvents(sf::Keyboard::Key code) override;
+  void handleKeyPressedEvents(sf::Keyboard::Key code) override;
   void update(sf::Time Delta) override;
   void draw(sf::RenderWindow& window) override;
 

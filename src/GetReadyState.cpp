@@ -31,7 +31,7 @@ void GetReadyState::setLogo() {
   m_sprite.setPosition(50, 50);
 }
 
-void GetReadyState::handleKeyboardEvents(sf::Keyboard::Key code) {
+void GetReadyState::handleKeyPressedEvents(sf::Keyboard::Key code) {
   if (code == sf::Keyboard::Escape) getGame().exit();
   if (code == sf::Keyboard::Space)
     getGame().changeGameState(GameState::Playing);

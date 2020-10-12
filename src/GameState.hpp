@@ -13,9 +13,12 @@ class GameState {
   GameState(Game& game);
   Game& getGame() const;
 
-  virtual void handleKeyboardEvents(sf::Keyboard::Key code) = 0;
+  virtual void handleKeyPressedEvents(sf::Keyboard::Key code) = 0;
+  virtual void handleKeyReleasedEvents(sf::Keyboard::Key code){};
+
   virtual void update(sf::Time delta) = 0;
   virtual void draw(sf::RenderWindow& window) = 0;
+  virtual void initialize(){};
 
  private:
   Game& m_game;

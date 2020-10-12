@@ -8,7 +8,7 @@ class GetReadyState : public GameState {
  public:
   GetReadyState(Game& game);
 
-  void handleKeyboardEvents(sf::Keyboard::Key code) override;
+  void handleKeyPressedEvents(sf::Keyboard::Key code) override;
   void update(sf::Time Delta);
   void draw(sf::RenderWindow& window);
 

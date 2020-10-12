@@ -13,9 +13,11 @@ class PlayingState : public GameState {
  public:
   PlayingState(Game& game);
 
-  void handleKeyboardEvents(sf::Keyboard::Key code) override;
-  void update(sf::Time Delta) override;
-  void draw(sf::RenderWindow& window) override;
+  virtual void initialize() override;
+  virtual void handleKeyPressedEvents(sf::Keyboard::Key code) override;
+  virtual void handleKeyReleasedEvents(sf::Keyboard::Key code) override;
+  virtual void update(sf::Time Delta) override;
+  virtual void draw(sf::RenderWindow& window) override;
   void drawPiece(sf::RenderWindow& window, const Piece& piece, int row,
                  int col);
 
@@ -29,6 +31,16 @@ class PlayingState : public GameState {
  private:
   std::array<std::array<Colors, kBoardWidth>, kBoardHeight> m_gameBoard;
   sf::RectangleShape m_rectangle;
+
+  const Piece* m_piece;
+  int m_row;
+  int m_col;
+
+  sf::Time m_elapsedTime;
+  sf::Clock m_clock;
+  sf::Time m_deltaTime;
+
+  void makeNewPiece();
 };
 
 }  // namespace RhoTetris
