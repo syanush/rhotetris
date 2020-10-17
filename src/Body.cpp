@@ -52,7 +52,6 @@ bool RhoTetris::operator!=(const Body& lhs, const Body& rhs) {
   return !(lhs == rhs);
 }
 
-// TODO: create correct realization
 Skirt RhoTetris::getSkirt(const Body& body) {
   const auto& width = getWidth(body);
   Skirt skirt;

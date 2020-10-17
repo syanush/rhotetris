@@ -20,6 +20,8 @@ class PlayingState : public GameState {
   virtual void draw(sf::RenderWindow& window) override;
   void drawPiece(sf::RenderWindow& window, const Piece& piece, int row,
                  int col);
+  void drawBoardOutline(sf::RenderWindow& window);
+  void drawBoard(sf::RenderWindow& window);
 
   static const int kBoardWidth = 10;
   static const int kBoardHeight = 22;

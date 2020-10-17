@@ -32,9 +32,15 @@ void GetReadyState::setLogo() {
 }
 
 void GetReadyState::handleKeyPressedEvents(sf::Keyboard::Key code) {
-  // TODO: use switch/case
-  if (code == sf::Keyboard::Escape) getGame().exit();
-  if (code == sf::Keyboard::Space)
-    getGame().changeGameState(GameState::Playing);
-  if (code == sf::Keyboard::R) getGame().changeGameState(GameState::EndGame);
+  switch (code) {
+    case sf::Keyboard::Escape:
+      getGame().exit();
+      break;
+    case sf::Keyboard::Space:
+      getGame().changeGameState(GameState::Playing);
+      break;
+    case sf::Keyboard::R:
+      getGame().changeGameState(GameState::EndGame);
+      break;
+  }
 }

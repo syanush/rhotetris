@@ -4,7 +4,7 @@
 
 namespace RhoTetris {
 
-using Body = std::vector<Point>;  // TODO: Move to Body.hpp/cpp
+using Body = std::vector<Point>;
 using Skirt = std::vector<int>;
 
 size_t getWidth(const Body& body);

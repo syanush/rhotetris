@@ -1,5 +1,7 @@
 #include "Piece.hpp"
 
+#include "PointIo.hpp"
+
 using namespace RhoTetris;
 
 /*

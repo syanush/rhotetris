@@ -33,7 +33,7 @@ void PlayingState::drawPiece(sf::RenderWindow& window, const Piece& piece,
   }
 }
 
-void PlayingState::draw(sf::RenderWindow& window) {
+void PlayingState::drawBoardOutline(sf::RenderWindow& window) {
   m_rectangle.setSize(sf::Vector2f{5, kBoardHeight * kCellHeight + 2});
   m_rectangle.setFillColor(sf::Color::Yellow);
 
@@ -53,7 +53,9 @@ void PlayingState::draw(sf::RenderWindow& window) {
 
   m_rectangle =
       sf::RectangleShape(sf::Vector2f(kCellWidth - 1, kCellHeight - 1));
+}
 
+void PlayingState::drawBoard(sf::RenderWindow& window) {
   for (int row = 0; row < kBoardHeight; ++row) {
     for (int col = 0; col < kBoardWidth; ++col) {
       const auto position = sf::Vector2f(kOriginX + kCellWidth * col,
@@ -64,7 +66,11 @@ void PlayingState::draw(sf::RenderWindow& window) {
       window.draw(m_rectangle);
     }
   }
+}
 
+void PlayingState::draw(sf::RenderWindow& window) {
+  drawBoardOutline(window);
+  drawBoard(window);
   drawPiece(window, *m_piece, m_row, m_col);
 }
 
@@ -132,7 +138,6 @@ void PlayingState::makeNewPiece() {
 
 void PlayingState::initialize() { makeNewPiece(); }
 
-// TODO: Move to Colors.hpp/cpp
 sf::Color RhoTetris::ToColor(Colors value) {
   switch (value) {
     case Colors::Default:

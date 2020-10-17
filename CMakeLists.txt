@@ -12,6 +12,7 @@ set(SRC
         src/EndGameState.cpp
         src/Piece.cpp
         src/Point.cpp
+        src/PointIo.cpp
         src/Body.cpp)
 
 add_library(rhotetris ${SRC})
