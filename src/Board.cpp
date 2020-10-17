@@ -23,6 +23,11 @@ bool Board::collidesAt(int col, int row) {
   return false;
 }
 
+void Board::hardDrop() {
+  while (!collidesAt(m_col, m_row - 1)) --m_row;
+  touchDown();
+}
+
 void Board::lockPiece() {
   for (const auto& [x, y] : m_piece->getBody()) {
     auto bCol = m_col + x;
@@ -95,11 +100,15 @@ void Board::rotatePiece() {
   if (m_col > maxCol) m_col = maxCol;
 }
 
+void Board::touchDown() {
+  lockPiece();
+  clearCompleteLines();
+  makeNewPiece();
+}
+
 void Board::Update() {
   if (collidesAt(m_col, m_row - 1)) {
-    lockPiece();
-    clearCompleteLines();
-    makeNewPiece();
+    touchDown();
   } else {
     m_row -= 1;
   }

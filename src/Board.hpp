@@ -19,10 +19,12 @@ class Board {
   void movePieceRight();
   void rotatePiece();
   bool collidesAt(int col, int row);
+  void hardDrop();
   void lockPiece();
   bool isCompleteLine(int row) const;
   void clearCompleteLine(int aRow);
   void clearCompleteLines();
+  void touchDown();
   void Update();
 
   Colors getCell(int col, int row) const { return m_gameBoard[row][col]; }

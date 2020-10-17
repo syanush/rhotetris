@@ -105,7 +105,11 @@ void PlayingState::handleKeyPressedEvents(sf::Keyboard::Key code) {
       m_board.rotatePiece();
       break;
     case sf::Keyboard::Down:
+      // soft drop
       m_deltaTime = sf::seconds(0.05);
+      break;
+    case sf::Keyboard::Space:
+      m_board.hardDrop();
       break;
   }
 }
