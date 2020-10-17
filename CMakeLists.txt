@@ -13,7 +13,8 @@ set(SRC
         src/Piece.cpp
         src/Point.cpp
         src/PointIo.cpp
-        src/Body.cpp)
+        src/Body.cpp
+        src/Board.cpp)
 
 add_library(rhotetris ${SRC})
 target_compile_features(rhotetris PUBLIC cxx_std_17)
