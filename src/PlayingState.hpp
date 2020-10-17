@@ -46,6 +46,13 @@ class PlayingState : public GameState {
   void movePieceLeft();
   void movePieceRight();
   void rotatePiece();
+  void UpdateGameState();
+  bool collidesAt(int col, int row);
+  void handleCollision();
+  void lockPiece();
+  bool isCompleteLine(int row);
+  void clearCompleteLine(int aRow);
+  void clearCompleteLines();
 };
 
 }  // namespace RhoTetris

@@ -16,7 +16,7 @@ void PlayingState::drawPiece(sf::RenderWindow& window, const Piece& piece,
                              int row, int col) {
   const auto position =
       sf::Vector2f(kOriginX + kCellWidth * col, kOriginY - kCellHeight * row);
-  const auto color = sf::Color::Cyan;
+  const auto color = sf::Color::Magenta;
   m_rectangle.setFillColor(color);
 
   const auto& body = piece.getBody();
@@ -69,17 +69,34 @@ void PlayingState::draw(sf::RenderWindow& window) {
   drawPiece(window, *m_piece, m_row, m_col);
 }
 
+bool PlayingState::collidesAt(int col, int row) {
+  if (row < 0) return true;
+
+  for (const auto& [x, y] : m_piece->getBody()) {
+    auto bCol = col + x;
+    auto bRow = row + y;
+    auto color = m_gameBoard[bRow][bCol];
+    if (color != Colors::Default) return true;
+  }
+
+  return false;
+}
+
+void PlayingState::UpdateGameState() {
+  if (collidesAt(m_col, m_row - 1)) {
+    lockPiece();
+    clearCompleteLines();
+    makeNewPiece();
+  } else {
+    m_row -= 1;
+  }
+}
+
 void PlayingState::update(sf::Time delta) {
   m_elapsedTime += m_clock.restart();
 
   while (m_elapsedTime >= m_deltaTime) {
-    // do action
-
-    if (m_row == 0) {
-      makeNewPiece();
-    }
-
-    m_row -= 1;
+    UpdateGameState();
 
     // Substract the time consumed
     m_elapsedTime -= m_deltaTime;
@@ -104,7 +121,7 @@ void PlayingState::handleKeyPressedEvents(sf::Keyboard::Key code) {
       rotatePiece();
       break;
     case sf::Keyboard::Down:
-      m_deltaTime = sf::seconds(0.1);
+      m_deltaTime = sf::seconds(0.05);
       break;
   }
 }
@@ -119,7 +136,7 @@ void PlayingState::handleKeyReleasedEvents(sf::Keyboard::Key code) {
 
 const Piece* getNextPiece() {
   auto& pieces = Piece::getPieces();
-  const int index = rand() % 7;
+  const int index = rand() % 7;  // number of different pieces
   const Piece* piece = &pieces[index];
   while (piece->getHeight() > 2) piece = piece->nextRotation();
   return piece;
@@ -127,18 +144,24 @@ const Piece* getNextPiece() {
 
 void PlayingState::makeNewPiece() {
   m_piece = getNextPiece();
-  m_col = 5;
-  m_row = 20;
+  m_col = kBoardWidth / 2;
+  m_row = kBoardHeight - 2;
 }
 
 void PlayingState::initialize() { makeNewPiece(); }
 
 void PlayingState::movePieceLeft() {
+  if (collidesAt(m_col - 1, m_row)) return;
+
   if (m_col > 0) m_col -= 1;
 }
 
 void PlayingState::movePieceRight() {
-  if (m_col + m_piece->getWidth() < 10) m_col += 1;
+  if (collidesAt(m_col + 1, m_row)) return;
+
+  const auto maxCol = kBoardWidth - m_piece->getWidth();
+
+  if (m_col < maxCol) m_col += 1;
 }
 
 void PlayingState::rotatePiece() {
@@ -154,7 +177,35 @@ void PlayingState::rotatePiece() {
   if (m_col < 0) m_col = 0;
 
   // Right kick
-  if (m_col > 10 - m_piece->getWidth()) m_col = 10 - m_piece->getWidth();
+  const auto maxCol = kBoardWidth - m_piece->getWidth();
+  if (m_col > maxCol) m_col = maxCol;
+}
+
+bool PlayingState::isCompleteLine(int row) {
+  for (int col = 0; col < kBoardWidth; ++col) {
+    if (m_gameBoard[row][col] == Colors::Default) return false;
+  }
+  return true;
+}
+
+void PlayingState::clearCompleteLine(int aRow) {
+  for (int row = aRow; row < kBoardHeight - 1; ++row) {
+    std::move(begin(m_gameBoard[row + 1]), end(m_gameBoard[row + 1]),
+              begin(m_gameBoard[row]));
+  }
+}
+
+void PlayingState::lockPiece() {
+  for (const auto& [x, y] : m_piece->getBody()) {
+    auto bCol = m_col + x;
+    auto bRow = m_row + y;
+    m_gameBoard[bRow][bCol] = Colors::Magenta;
+  }
+}
+
+void PlayingState::clearCompleteLines() {
+  for (int bRow = kBoardHeight - 1 - 2; bRow >= 0; --bRow)
+    if (isCompleteLine(bRow)) clearCompleteLine(bRow);
 }
 
 sf::Color RhoTetris::ToColor(Colors value) {
