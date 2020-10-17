@@ -45,6 +45,17 @@ void PlayingState::drawBoardOutline(sf::RenderWindow& window) {
       sf::RectangleShape(sf::Vector2f(kCellWidth - 1, kCellHeight - 1));
 }
 
+sf::Color ToColor(Colors value) {
+  switch (value) {
+    case Colors::Default:
+      return sf::Color::Transparent;
+    case Colors::Magenta:
+      return sf::Color::Magenta;
+    default:
+      throw std::invalid_argument("Unknown value");
+  }
+}
+
 void PlayingState::drawBoard(sf::RenderWindow& window) {
   for (int row = 0; row < Board::kBoardHeight; ++row) {
     for (int col = 0; col < Board::kBoardWidth; ++col) {
@@ -108,14 +119,3 @@ void PlayingState::handleKeyReleasedEvents(sf::Keyboard::Key code) {
 }
 
 void PlayingState::initialize() { m_board.makeNewPiece(); }
-
-sf::Color RhoTetris::ToColor(Colors value) {
-  switch (value) {
-    case Colors::Default:
-      return sf::Color::Transparent;
-    case Colors::Magenta:
-      return sf::Color::Magenta;
-    default:
-      throw std::invalid_argument("Unknown value");
-  }
-}

@@ -6,8 +6,6 @@
 
 namespace RhoTetris {
 
-sf::Color ToColor(Colors value);
-
 class PlayingState : public GameState {
  public:
   PlayingState(Game& game);
