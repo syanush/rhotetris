@@ -43,6 +43,9 @@ class PlayingState : public GameState {
   sf::Time m_deltaTime;
 
   void makeNewPiece();
+  void movePieceLeft();
+  void movePieceRight();
+  void rotatePiece();
 };
 
 }  // namespace RhoTetris

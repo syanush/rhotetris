@@ -10,11 +10,6 @@ PlayingState::PlayingState(Game& game) : GameState(game) {
       m_gameBoard[row][col] = Colors::Default;
     }
   }
-
-  m_gameBoard[0][0] = Colors::Blue;
-  m_gameBoard[kBoardHeight - 1][0] = Colors::Blue;
-  m_gameBoard[0][kBoardWidth - 1] = Colors::Blue;
-  m_gameBoard[kBoardHeight - 1][kBoardWidth - 1] = Colors::Blue;
 }
 
 void PlayingState::drawPiece(sf::RenderWindow& window, const Piece& piece,
@@ -100,13 +95,13 @@ void PlayingState::handleKeyPressedEvents(sf::Keyboard::Key code) {
       getGame().changeGameState(GameState::EndGame);
       break;
     case sf::Keyboard::Left:
-      m_col -= 1;
+      movePieceLeft();
       break;
     case sf::Keyboard::Right:
-      m_col += 1;
+      movePieceRight();
       break;
     case sf::Keyboard::Up:
-      m_piece = m_piece->nextRotation();
+      rotatePiece();
       break;
     case sf::Keyboard::Down:
       m_deltaTime = sf::seconds(0.1);
@@ -137,6 +132,30 @@ void PlayingState::makeNewPiece() {
 }
 
 void PlayingState::initialize() { makeNewPiece(); }
+
+void PlayingState::movePieceLeft() {
+  if (m_col > 0) m_col -= 1;
+}
+
+void PlayingState::movePieceRight() {
+  if (m_col + m_piece->getWidth() < 10) m_col += 1;
+}
+
+void PlayingState::rotatePiece() {
+  auto oldCenter = m_piece->getWidth() / 2;
+  m_piece = m_piece->nextRotation();
+  auto newCenter = m_piece->getWidth() / 2;
+
+  // Preserve piece center position
+  m_col += oldCenter;
+  m_col -= newCenter;
+
+  // Left kick
+  if (m_col < 0) m_col = 0;
+
+  // Right kick
+  if (m_col > 10 - m_piece->getWidth()) m_col = 10 - m_piece->getWidth();
+}
 
 sf::Color RhoTetris::ToColor(Colors value) {
   switch (value) {
