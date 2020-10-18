@@ -65,7 +65,7 @@ const Piece* getNextPiece() {
 
 void Board::makeNewPiece() {
   m_piece = getNextPiece();
-  m_col = kBoardWidth / 2;
+  m_col = kBoardWidth / 2 - 1;
   m_row = kBoardHeight - 2;
 }
 
@@ -104,6 +104,10 @@ void Board::touchDown() {
   lockPiece();
   clearCompleteLines();
   makeNewPiece();
+
+  if (collidesAt(m_col, m_row)) {
+    notify_observers();
+  }
 }
 
 void Board::update() {

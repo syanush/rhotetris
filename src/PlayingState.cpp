@@ -3,8 +3,7 @@
 using namespace RhoTetris;
 
 PlayingState::PlayingState(Game& game) : GameState(game) {
-  m_deltaTime = sf::seconds(0.5);
-  m_board.clear();
+  m_board.register_observer(*this);
 }
 
 void PlayingState::drawPiece(sf::RenderWindow& window, const Piece& piece,
@@ -122,4 +121,10 @@ void PlayingState::handleKeyReleasedEvents(sf::Keyboard::Key code) {
   }
 }
 
-void PlayingState::initialize() { m_board.makeNewPiece(); }
+void PlayingState::initialize() {
+  m_deltaTime = sf::seconds(0.5);
+  m_board.clear();
+  m_board.makeNewPiece();
+}
+
+void PlayingState::notify() { getGame().changeGameState(GameState::EndGame); }
