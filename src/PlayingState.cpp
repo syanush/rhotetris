@@ -105,7 +105,7 @@ void PlayingState::handleKeyPressedEvents(sf::Keyboard::Key code) {
       break;
     case sf::Keyboard::Down:
       // soft drop
-      m_deltaTime = sf::seconds(0.05);
+      m_deltaTime = sf::seconds(0.1);
       break;
     case sf::Keyboard::Space:
       m_board.hardDrop();
