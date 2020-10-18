@@ -106,7 +106,7 @@ void Board::touchDown() {
   makeNewPiece();
 
   if (collidesAt(m_col, m_row)) {
-    notify_observers();
+    handleGameOverEvent();
   }
 }
 

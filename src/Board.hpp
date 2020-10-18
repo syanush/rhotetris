@@ -2,14 +2,14 @@
 
 #include <array>
 
-#include "Observable.hpp"
+#include "GameOverEvent.hpp"
 #include "Piece.hpp"
 
 namespace RhoTetris {
 
 enum class Colors { Default, Magenta };
 
-class Board : public Observable {
+class Board : public GameOverEvent {
  public:
   static const int kBoardWidth = 10;
   static const int kBoardHeight = 22;

@@ -3,7 +3,7 @@
 using namespace RhoTetris;
 
 PlayingState::PlayingState(Game& game) : GameState(game) {
-  m_board.register_observer(*this);
+  m_board.addGameOverEventHandler(*this);
 }
 
 void PlayingState::drawPiece(sf::RenderWindow& window, const Piece& piece,
@@ -127,4 +127,6 @@ void PlayingState::initialize() {
   m_board.makeNewPiece();
 }
 
-void PlayingState::notify() { getGame().changeGameState(GameState::EndGame); }
+void PlayingState::handleGameOverEvent() {
+  getGame().changeGameState(GameState::EndGame);
+}

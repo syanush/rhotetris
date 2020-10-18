@@ -2,12 +2,12 @@
 
 #include "Board.hpp"
 #include "Game.hpp"
-#include "IObserver.hpp"
+#include "IGameOverEventHandler.hpp"
 #include "Piece.hpp"
 
 namespace RhoTetris {
 
-class PlayingState : public GameState, public IObserver {
+class PlayingState : public GameState, public IGameOverEventHandler {
  public:
   PlayingState(Game& game);
 
@@ -21,7 +21,7 @@ class PlayingState : public GameState, public IObserver {
   void drawBoardOutline(sf::RenderWindow& window);
   void drawBoard(sf::RenderWindow& window);
 
-  void notify() override;
+  void handleGameOverEvent() override;
 
   static const int kCellWidth = 16;
   static const int kCellHeight = 16;
