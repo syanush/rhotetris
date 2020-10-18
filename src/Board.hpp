@@ -14,18 +14,12 @@ class Board {
   static const int kBoardHeight = 22;
 
   void clear();
+  void update();
   void makeNewPiece();
   void movePieceLeft();
   void movePieceRight();
   void rotatePiece();
-  bool collidesAt(int col, int row);
   void hardDrop();
-  void lockPiece();
-  bool isCompleteLine(int row) const;
-  void clearCompleteLine(int aRow);
-  void clearCompleteLines();
-  void touchDown();
-  void Update();
 
   Colors getCell(int col, int row) const { return m_gameBoard[row][col]; }
   int getRow() const { return m_row; }
@@ -40,6 +34,13 @@ class Board {
   // piece position on the board
   int m_row;
   int m_col;
+
+  bool collidesAt(int col, int row);
+  void lockPiece();
+  bool isCompleteLine(int row) const;
+  void clearCompleteLine(int aRow);
+  void clearCompleteLines();
+  void touchDown();
 };
 
 }  // namespace RhoTetris

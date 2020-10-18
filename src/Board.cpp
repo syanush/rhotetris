@@ -106,7 +106,7 @@ void Board::touchDown() {
   makeNewPiece();
 }
 
-void Board::Update() {
+void Board::update() {
   if (collidesAt(m_col, m_row - 1)) {
     touchDown();
   } else {

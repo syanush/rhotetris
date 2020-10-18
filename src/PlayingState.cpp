@@ -80,7 +80,7 @@ void PlayingState::update(sf::Time delta) {
   m_elapsedTime += m_clock.restart();
 
   while (m_elapsedTime >= m_deltaTime) {
-    m_board.Update();
+    m_board.update();
 
     // Substract the time consumed
     m_elapsedTime -= m_deltaTime;
